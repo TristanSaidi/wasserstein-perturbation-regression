@@ -5,7 +5,9 @@ Protocol = CellOT o.o.s. lupus-patient task (configs/tasks/lupuspatients-ood.yam
   'ood' control cells, compare to its 'ood' stim cells with cellot/scripts/evaluate.py metrics.
 Hyper-parameters are scored by leave-one-patient-out *inside the 7 training patients* (no test cells).
 
-Usage: run_fold.py <holdout> <pca_dim>
+Usage: run_fold.py <holdout> <pca_dim> [n_train_cells]
+  n_train_cells (optional): subsample every training patient to this many control and stimulated cells
+  (same subsample as run_fold_tex.py); output tag "_n<N>".
 """
 import sys, os, time, pickle
 import numpy as np, pandas as pd
@@ -16,6 +18,8 @@ from wreg.regress import Problem
 from wreg.evaluate import mmd
 
 K, d = int(sys.argv[1]), int(sys.argv[2])
+NTR = int(sys.argv[3]) if len(sys.argv) > 3 else None
+TAG = f"_n{NTR}" if NTR else ""
 BANDW = [0.1, 0.25, 0.5, 1.0, 2.0, np.inf]
 LAMS = [1e-3, 1e-2, 1e-1, 1.0, 10.0]
 t0 = time.time()
@@ -26,9 +30,16 @@ mk_idx = [df.columns.get_loc(m) for m in mk]
 def sel(s, split, tr):
     return df[((obs.sample_id == s) & (obs.split == split) & (obs.transport == tr)).values]
 train = [s for s in SAMPLES if s != K]
-pca = PCA(df[(obs.split == "train").values].values, d)
 raw_c = {s: sel(s, "train", "source").values for s in train}
 raw_t = {s: sel(s, "train", "target").values for s in train}
+if NTR:
+    rng = np.random.default_rng(K)
+    sub = lambda A: A[rng.choice(len(A), min(NTR, len(A)), replace=False)]
+    raw_c = {s: sub(v) for s, v in raw_c.items()}
+    raw_t = {s: sub(v) for s, v in raw_t.items()}
+    pca = PCA(np.concatenate(list(raw_c.values()) + list(raw_t.values())), d)
+else:
+    pca = PCA(df[(obs.split == "train").values].values, d)
 test_c, test_t = sel(K, "ood", "source"), sel(K, "ood", "target")
 raw_c["test"] = test_c.values
 ctrl = {s: pca.enc(v) for s, v in raw_c.items()}
@@ -62,5 +73,5 @@ for geom in [BW(), WPT()]:
     print(geom.name, "test done", round(time.time() - t0), flush=True)
 
 pickle.dump(dict(inner=pd.DataFrame(inner), disps=disps, V=pca.V, holdout=K, d=d),
-            open(os.path.join(ROOT, f"results/folds/{K}_{d}.pkl"), "wb"))
+            open(os.path.join(ROOT, f"results/folds/{K}_{d}{TAG}.pkl"), "wb"))
 print("DONE", K, d, round(time.time() - t0))
