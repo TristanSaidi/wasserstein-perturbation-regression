@@ -1,0 +1,6 @@
+[submodule "external/WassersteinPT"]
+	path = external/WassersteinPT
+	url = https://github.com/TristanSaidi/WassersteinPT
+[submodule "external/cellot"]
+	path = external/cellot
+	url = https://github.com/bunnech/cellot

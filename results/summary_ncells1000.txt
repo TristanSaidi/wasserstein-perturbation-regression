@@ -1,0 +1,95 @@
+=== MMD (top-50 marker genes, 1000 cells, mean ± sd over 10 bootstraps), held-out patients reported by Bunne et al. ===
+holdout                                            1015             1256             1488    mean
+model                                                                                            
+observed (other half of treated cells)  0.0015 ± 0.0001  0.0016 ± 0.0001  0.0015 ± 0.0001  0.0016
+WPT kernel                              0.0112 ± 0.0007  0.0088 ± 0.0003  0.0099 ± 0.0002  0.0100
+CellOT [reported, i.i.d.]               0.0150 ± 0.0005  0.0090 ± 0.0003  0.0080 ± 0.0003  0.0107
+BW linear                               0.0102 ± 0.0006  0.0106 ± 0.0003  0.0123 ± 0.0002  0.0110
+WPT linear                              0.0103 ± 0.0006  0.0106 ± 0.0002  0.0126 ± 0.0002  0.0112
+BW kernel                               0.0135 ± 0.0007  0.0100 ± 0.0003  0.0143 ± 0.0002  0.0126
+CellOT [reported, o.o.s.]               0.0166 ± 0.0007  0.0120 ± 0.0004  0.0113 ± 0.0006  0.0133
+scGen [reported, i.i.d.]                0.0257 ± 0.0006  0.0248 ± 0.0007  0.0285 ± 0.0008  0.0263
+mean-shift (gene space)                 0.0182 ± 0.0006  0.0293 ± 0.0007  0.0385 ± 0.0006  0.0287
+scGen [reported, o.o.s.]                0.0321 ± 0.0006  0.0231 ± 0.0007  0.0324 ± 0.0010  0.0292
+WPT linear-nointercept                  0.0377 ± 0.0009  0.0333 ± 0.0005  0.0172 ± 0.0003  0.0294
+identity                                0.0447 ± 0.0009  0.0378 ± 0.0005  0.0402 ± 0.0005  0.0409
+BW linear-nointercept                   0.0448 ± 0.0009  0.0416 ± 0.0005  0.0427 ± 0.0005  0.0430
+cAE [reported, i.i.d.]                  0.0447 ± 0.0015  0.0438 ± 0.0011  0.0516 ± 0.0009  0.0467
+cAE [reported, o.o.s.]                  0.0589 ± 0.0023  0.0407 ± 0.0011  0.0548 ± 0.0012  0.0515
+
+=== MMD, all 8 held-out patients ===
+holdout                                   1015    1256    1488    mean
+model                                                                 
+observed (other half of treated cells)  0.0015  0.0016  0.0015  0.0016
+WPT kernel                              0.0112  0.0088  0.0099  0.0100
+CellOT [reported, i.i.d.]               0.0150  0.0090  0.0080  0.0107
+BW linear                               0.0102  0.0106  0.0123  0.0110
+WPT linear                              0.0103  0.0106  0.0126  0.0112
+BW kernel                               0.0135  0.0100  0.0143  0.0126
+CellOT [reported, o.o.s.]               0.0166  0.0120  0.0113  0.0133
+scGen [reported, i.i.d.]                0.0257  0.0248  0.0285  0.0263
+mean-shift (gene space)                 0.0182  0.0293  0.0385  0.0287
+scGen [reported, o.o.s.]                0.0321  0.0231  0.0324  0.0292
+WPT linear-nointercept                  0.0377  0.0333  0.0172  0.0294
+identity                                0.0447  0.0378  0.0402  0.0409
+BW linear-nointercept                   0.0448  0.0416  0.0427  0.0430
+cAE [reported, i.i.d.]                  0.0447  0.0438  0.0516  0.0467
+cAE [reported, o.o.s.]                  0.0589  0.0407  0.0548  0.0515
+
+=== MMD of selected models vs number of evaluation cells (mean over 1488/1015/1256) ===
+ncells                                    100     250     500     1000
+model                                                                 
+BW kernel                               0.0271  0.0170  0.0142  0.0126
+BW linear                               0.0254  0.0154  0.0126  0.0110
+BW linear-nointercept                   0.0582  0.0473  0.0447  0.0430
+WPT kernel                              0.0243  0.0144  0.0115  0.0100
+WPT linear                              0.0253  0.0156  0.0127  0.0112
+WPT linear-nointercept                  0.0445  0.0338  0.0310  0.0294
+identity                                0.0561  0.0452  0.0426  0.0409
+mean-shift (gene space)                 0.0422  0.0332  0.0304  0.0287
+observed (other half of treated cells)  0.0154  0.0060  0.0031  0.0016
+
+=== feature means over all 1000 genes, mean over 8 patients ===
+holdout                                mean l2 mean r2
+model                                                 
+observed (other half of treated cells)   0.956   0.928
+WPT linear                               1.747   0.791
+BW linear                                1.748   0.788
+mean-shift (gene space)                  1.758   0.808
+WPT kernel                               1.831   0.764
+BW kernel                                1.940   0.749
+WPT linear-nointercept                   3.503  -0.178
+identity                                 4.319  -0.458
+BW linear-nointercept                    4.463  -0.480
+
+=== selected hyper-parameters (inner leave-one-patient-out) ===
+holdout                           101            107            1015           1016           1039           1244           1256           1488
+geom method                                                                                                                                    
+bw   kernel                d=50, h=0.1   d=50, h=0.25    d=30, h=0.1   d=50, h=0.25   d=50, h=0.25    d=50, h=0.1   d=50, h=0.25    d=50, h=0.5
+     linear              d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001
+     linear-nointercept  d=10, h=0.001    d=10, h=1.0   d=30, h=10.0   d=30, h=10.0  d=10, h=0.001  d=10, h=0.001  d=10, h=0.001    d=50, h=1.0
+wpt  kernel                d=50, h=0.1    d=50, h=0.1    d=50, h=0.1    d=50, h=0.1    d=50, h=0.1    d=50, h=0.1    d=50, h=0.1    d=50, h=0.1
+     linear              d=30, h=0.001  d=30, h=0.001  d=30, h=0.001  d=30, h=0.001  d=30, h=0.001  d=30, h=0.001  d=30, h=0.001  d=30, h=0.001
+     linear-nointercept  d=50, h=0.001  d=50, h=0.001  d=50, h=0.001  d=30, h=0.001  d=10, h=0.001  d=50, h=0.001  d=30, h=0.001  d=50, h=0.001
+
+=== sensitivity: test MMD (500 cells) for fixed hyper-parameters, mean over all 8 patients ===
+hyper                       0.001   0.010   0.100   0.250   0.500   1.000   2.000   10.000  inf   
+geom method             d                                                                         
+bw   kernel             10     NaN     NaN  0.0228  0.0227  0.0230  0.0235  0.0237     NaN  0.0238
+                        30     NaN     NaN  0.0131  0.0126  0.0130  0.0135  0.0137     NaN  0.0138
+                        50     NaN     NaN  0.0128  0.0124  0.0128  0.0133  0.0135     NaN  0.0136
+     linear             10  0.0226  0.0226  0.0226     NaN     NaN  0.0228     NaN  0.0235     NaN
+                        30  0.0123  0.0123  0.0124     NaN     NaN  0.0128     NaN  0.0135     NaN
+                        50  0.0122  0.0122  0.0122     NaN     NaN  0.0127     NaN  0.0133     NaN
+     linear-nointercept 10  0.0470  0.0470  0.0470     NaN     NaN  0.0459     NaN  0.0436     NaN
+                        30  0.0464  0.0463  0.0461     NaN     NaN  0.0449     NaN  0.0433     NaN
+                        50  0.0458  0.0458  0.0456     NaN     NaN  0.0445     NaN  0.0432     NaN
+wpt  kernel             10     NaN     NaN  0.0220  0.0223  0.0228  0.0230  0.0230     NaN  0.0230
+                        30     NaN     NaN  0.0120  0.0126  0.0134  0.0137  0.0137     NaN  0.0138
+                        50     NaN     NaN  0.0116  0.0128  0.0135  0.0137  0.0138     NaN  0.0138
+     linear             10  0.0223  0.0223  0.0223     NaN     NaN  0.0225     NaN  0.0227     NaN
+                        30  0.0126  0.0126  0.0126     NaN     NaN  0.0129     NaN  0.0132     NaN
+                        50  0.0126  0.0126  0.0127     NaN     NaN  0.0129     NaN  0.0131     NaN
+     linear-nointercept 10  0.0411  0.0442  0.0449     NaN     NaN  0.0447     NaN  0.0434     NaN
+                        30  0.0353  0.0411  0.0437     NaN     NaN  0.0438     NaN  0.0431     NaN
+                        50  0.0345  0.0399  0.0433     NaN     NaN  0.0435     NaN  0.0430     NaN
